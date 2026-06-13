@@ -11,6 +11,7 @@ const IMAGES = {
   reception: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f6375f79-2103-4094-885a-62f976b24b5f.JPG',
   bathroom: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/6f4d765a-6a5b-4544-80f9-63a20fc003bf.JPG',
   workspace: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/cfa2a6d8-1958-41a4-9e9e-de1e857ae2ca.JPG',
+  map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/files/f9a9b7c8-acc5-473a-b7b1-3f680ccf0d40.jpg',
 };
 
 const CSS_VARS = {
@@ -102,58 +103,22 @@ function Slide1() {
   );
 }
 
-// ─── Stylized gold map ───────────────────────────────────────────────────────
+// ─── Realistic gold map ──────────────────────────────────────────────────────
 function GoldMap() {
   return (
-    <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
-      <defs>
-        <radialGradient id="mapGlow" cx="58%" cy="44%" r="60%">
-          <stop offset="0%" stopColor="#1a1d22" />
-          <stop offset="100%" stopColor="#0E0E12" />
-        </radialGradient>
-        <radialGradient id="markerGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#E8C87A" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#E8C87A" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width="400" height="400" fill="url(#mapGlow)" />
-
-      {/* Москва-река */}
-      <path d="M-10 300 C 80 320, 130 250, 180 270 C 240 295, 280 240, 360 250 L 410 245" stroke="#C9A84C" strokeWidth="6" strokeOpacity="0.18" fill="none" />
-      <path d="M-10 300 C 80 320, 130 250, 180 270 C 240 295, 280 240, 360 250 L 410 245" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.35" fill="none" />
-
-      {/* Бульварное кольцо */}
-      <ellipse cx="220" cy="190" rx="150" ry="135" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.28" fill="none" strokeDasharray="4 5" />
-      {/* Садовое кольцо */}
-      <ellipse cx="215" cy="195" rx="210" ry="195" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.18" fill="none" />
-
-      {/* Кремль / квартал */}
-      <polygon points="175,235 230,225 255,265 215,295 165,275" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.3" fill="rgba(201,168,76,0.05)" />
-
-      {/* Улицы-радиусы */}
-      {[20, 65, 110, 155, 200, 250, 300, 340].map((a) => {
-        const rad = (a * Math.PI) / 180;
-        return <line key={a} x1="220" y1="190" x2={220 + Math.cos(rad) * 260} y2={190 + Math.sin(rad) * 260} stroke="#C9A84C" strokeWidth="0.6" strokeOpacity="0.12" />;
-      })}
-
-      {/* Кварталы-сетка */}
-      {[
-        [120, 110, 38, 26], [165, 95, 30, 30], [255, 110, 34, 24], [300, 130, 28, 30],
-        [115, 160, 32, 28], [285, 175, 32, 26], [130, 230, 30, 26], [275, 240, 36, 28],
-        [160, 130, 26, 22], [240, 145, 28, 24],
-      ].map((r, i) => (
-        <rect key={i} x={r[0]} y={r[1]} width={r[2]} height={r[3]} rx="2" stroke="#C9A84C" strokeWidth="0.7" strokeOpacity="0.16" fill="rgba(201,168,76,0.02)" />
-      ))}
-
+    <>
+      <img src={IMAGES.map} alt="Карта центра Москвы" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.95) saturate(1.05) contrast(1.05)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 57% 40%, transparent 28%, rgba(14,14,18,0.55) 100%)' }} />
       {/* Маркер — Кузнецкий мост 4/3 */}
-      <circle cx="232" cy="150" r="34" fill="url(#markerGlow)" />
-      <circle cx="232" cy="150" r="16" stroke="#E8C87A" strokeWidth="1" fill="none" strokeOpacity="0.5">
-        <animate attributeName="r" values="14;22;14" dur="2.4s" repeatCount="indefinite" />
-        <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite" />
-      </circle>
-      <path d="M232 134 C 222 134, 215 142, 215 151 C 215 163, 232 178, 232 178 C 232 178, 249 163, 249 151 C 249 142, 242 134, 232 134 Z" fill="#C9A84C" />
-      <circle cx="232" cy="150" r="5.5" fill="#0E0E12" />
-    </svg>
+      <div style={{ position: 'absolute', top: '40%', left: '57%', transform: 'translate(-50%, -100%)' }}>
+        <div style={{ position: 'absolute', left: '50%', top: '100%', transform: 'translate(-50%, -50%)', width: 64, height: 64, borderRadius: '50%', background: 'radial-gradient(circle, rgba(232,200,122,0.45), transparent 70%)' }} />
+        <div style={{ position: 'absolute', left: '50%', top: '100%', transform: 'translate(-50%, -50%)', width: 30, height: 30, borderRadius: '50%', border: '1px solid rgba(232,200,122,0.6)', animation: 'mapPulse 2.4s ease-out infinite' }} />
+        <svg width="34" height="44" viewBox="0 0 34 44" fill="none" style={{ position: 'relative', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.6))' }}>
+          <path d="M17 0 C 7.6 0, 0 7.6, 0 17 C 0 29.75, 17 44, 17 44 C 17 44, 34 29.75, 34 17 C 34 7.6, 26.4 0, 17 0 Z" fill="#C9A84C" />
+          <circle cx="17" cy="17" r="6" fill="#0E0E12" />
+        </svg>
+      </div>
+    </>
   );
 }
 
@@ -702,6 +667,7 @@ export default function Index() {
       <style>{`
         @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes mapPulse { 0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.7; } 100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; } }
         @media print {
           .no-print { display: none !important; }
           * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
