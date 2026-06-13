@@ -11,7 +11,7 @@ const IMAGES = {
   reception: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f6375f79-2103-4094-885a-62f976b24b5f.JPG',
   bathroom: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/6f4d765a-6a5b-4544-80f9-63a20fc003bf.JPG',
   workspace: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/cfa2a6d8-1958-41a4-9e9e-de1e857ae2ca.JPG',
-  map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/017108b0-ea71-418c-bb89-327c8e52aab1.png',
+  map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/d567e5dd-b2b1-4a70-9496-40bbc10e49e4.jpg',
   planBefore: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/b577584e-ccbe-4324-b943-5d467968ddd0.png',
 };
 
@@ -108,11 +108,15 @@ function Slide1() {
 function GoldMap() {
   return (
     <>
-      <img src={IMAGES.map} alt="Карта центра Москвы" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '47% 52%', transform: 'scale(1.9)', filter: 'brightness(1) saturate(1.1) contrast(1.05)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 48%, transparent 30%, rgba(14,14,18,0.6) 100%)' }} />
+      {/* Карта в чёрно-золотой тонировке */}
+      <img src={IMAGES.map} alt="Карта центра Москвы" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '42% 34%', filter: 'grayscale(1) brightness(0.55) contrast(1.15)' }} />
+      <div style={{ position: 'absolute', inset: 0, mixBlendMode: 'overlay', background: 'linear-gradient(135deg, rgba(232,200,122,0.55), rgba(160,120,48,0.55))' }} />
+      <div style={{ position: 'absolute', inset: 0, mixBlendMode: 'color', background: '#C9A84C', opacity: 0.7 }} />
+      <div style={{ position: 'absolute', inset: 0, background: '#0E0E12', mixBlendMode: 'multiply', opacity: 0.35 }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 42% 34%, transparent 32%, rgba(14,14,18,0.55) 100%)' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 62%, #0E0E12)' }} />
       {/* Маркер — Кузнецкий мост 4/3 */}
-      <div style={{ position: 'absolute', top: '49%', left: '49%', transform: 'translate(-50%, -100%)' }}>
+      <div style={{ position: 'absolute', top: '34%', left: '42%', transform: 'translate(-50%, -100%)' }}>
         <div style={{ position: 'absolute', left: '50%', top: '100%', transform: 'translate(-50%, -50%)', width: 64, height: 64, borderRadius: '50%', background: 'radial-gradient(circle, rgba(232,200,122,0.45), transparent 70%)' }} />
         <div style={{ position: 'absolute', left: '50%', top: '100%', transform: 'translate(-50%, -50%)', width: 30, height: 30, borderRadius: '50%', border: '1px solid rgba(232,200,122,0.6)', animation: 'mapPulse 2.4s ease-out infinite' }} />
         <svg width="34" height="44" viewBox="0 0 34 44" fill="none" style={{ position: 'relative', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.6))' }}>
