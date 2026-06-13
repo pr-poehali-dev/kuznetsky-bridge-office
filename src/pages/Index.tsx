@@ -102,16 +102,73 @@ function Slide1() {
   );
 }
 
+// ─── Stylized gold map ───────────────────────────────────────────────────────
+function GoldMap() {
+  return (
+    <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+      <defs>
+        <radialGradient id="mapGlow" cx="58%" cy="44%" r="60%">
+          <stop offset="0%" stopColor="#1a1d22" />
+          <stop offset="100%" stopColor="#0E0E12" />
+        </radialGradient>
+        <radialGradient id="markerGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#E8C87A" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#E8C87A" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect width="400" height="400" fill="url(#mapGlow)" />
+
+      {/* Москва-река */}
+      <path d="M-10 300 C 80 320, 130 250, 180 270 C 240 295, 280 240, 360 250 L 410 245" stroke="#C9A84C" strokeWidth="6" strokeOpacity="0.18" fill="none" />
+      <path d="M-10 300 C 80 320, 130 250, 180 270 C 240 295, 280 240, 360 250 L 410 245" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.35" fill="none" />
+
+      {/* Бульварное кольцо */}
+      <ellipse cx="220" cy="190" rx="150" ry="135" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.28" fill="none" strokeDasharray="4 5" />
+      {/* Садовое кольцо */}
+      <ellipse cx="215" cy="195" rx="210" ry="195" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.18" fill="none" />
+
+      {/* Кремль / квартал */}
+      <polygon points="175,235 230,225 255,265 215,295 165,275" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.3" fill="rgba(201,168,76,0.05)" />
+
+      {/* Улицы-радиусы */}
+      {[20, 65, 110, 155, 200, 250, 300, 340].map((a) => {
+        const rad = (a * Math.PI) / 180;
+        return <line key={a} x1="220" y1="190" x2={220 + Math.cos(rad) * 260} y2={190 + Math.sin(rad) * 260} stroke="#C9A84C" strokeWidth="0.6" strokeOpacity="0.12" />;
+      })}
+
+      {/* Кварталы-сетка */}
+      {[
+        [120, 110, 38, 26], [165, 95, 30, 30], [255, 110, 34, 24], [300, 130, 28, 30],
+        [115, 160, 32, 28], [285, 175, 32, 26], [130, 230, 30, 26], [275, 240, 36, 28],
+        [160, 130, 26, 22], [240, 145, 28, 24],
+      ].map((r, i) => (
+        <rect key={i} x={r[0]} y={r[1]} width={r[2]} height={r[3]} rx="2" stroke="#C9A84C" strokeWidth="0.7" strokeOpacity="0.16" fill="rgba(201,168,76,0.02)" />
+      ))}
+
+      {/* Маркер — Кузнецкий мост 4/3 */}
+      <circle cx="232" cy="150" r="34" fill="url(#markerGlow)" />
+      <circle cx="232" cy="150" r="16" stroke="#E8C87A" strokeWidth="1" fill="none" strokeOpacity="0.5">
+        <animate attributeName="r" values="14;22;14" dur="2.4s" repeatCount="indefinite" />
+        <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite" />
+      </circle>
+      <path d="M232 134 C 222 134, 215 142, 215 151 C 215 163, 232 178, 232 178 C 232 178, 249 163, 249 151 C 249 142, 242 134, 232 134 Z" fill="#C9A84C" />
+      <circle cx="232" cy="150" r="5.5" fill="#0E0E12" />
+    </svg>
+  );
+}
+
 // ─── SLIDE 2: Локация ────────────────────────────────────────────────────────
 function Slide2() {
   return (
     <section style={{ minHeight: '100vh', background: '#0E0E12', display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
       <div style={{ flex: '1 1 400px', minHeight: '50vh', position: 'relative', overflow: 'hidden' }}>
-        <img src={IMAGES.facade} alt="Кузнецкий мост" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.75) saturate(0.85)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 55%, #0E0E12)' }} />
+        <GoldMap />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 60%, #0E0E12)' }} />
+        <GridBg />
+        <div style={{ position: 'absolute', top: 28, left: 32, fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.5)' }}>Центр Москвы</div>
         <div style={{ position: 'absolute', bottom: 32, left: 32, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.4)' }}>
           <Icon name="MapPin" size={11} style={{ color: '#C9A84C' }} />
-          <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>ул. Кузнецкий мост, д. 4</span>
+          <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>Кузнецкий мост, 4/3 стр. 1</span>
         </div>
       </div>
 
