@@ -7,6 +7,10 @@ const IMAGES = {
   hall: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/4a3c3947-6ab8-46b8-bdc7-37f090036245.JPG',
   gallery: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/c1cb7a77-230c-4d45-b1f5-10f4b8ddbb2a.JPG',
   console: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f73bb74b-08a0-4f8e-8fbe-3df7596369bb.JPG',
+  armchair: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/be380bf3-4888-45b4-8cce-91eafaac4803.JPG',
+  reception: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f6375f79-2103-4094-885a-62f976b24b5f.JPG',
+  bathroom: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/6f4d765a-6a5b-4544-80f9-63a20fc003bf.JPG',
+  workspace: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/cfa2a6d8-1958-41a4-9e9e-de1e857ae2ca.JPG',
 };
 
 const CSS_VARS = {
@@ -215,41 +219,42 @@ function Slide4() {
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: 'auto auto', gap: 12 }}>
-          <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '4/3', gridRow: '1 / 3' }}>
-            <img src={IMAGES.lounge} alt="Lounge" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.78) saturate(0.95)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12 0%, transparent 50%)' }} />
-            <div style={{ position: 'absolute', top: 12, left: 12 }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.6" fill="none"/></svg></div>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 24px' }}>
-              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 4 }}>Lounge</div>
-              <p style={{ fontFamily: 'Cormorant, serif', fontSize: 22, fontWeight: 300, color: '#F8F4EE', lineHeight: 1.3 }}>Изумрудный velvet, мрамор и золото в каждой линии</p>
-            </div>
-          </div>
-
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
-            <img src={IMAGES.hall} alt="Hall" style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: 180, filter: 'brightness(0.75) saturate(0.95)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12 0%, transparent 60%)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '14px 18px' }}>
-              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 3 }}>Reception</div>
-              <p style={{ fontFamily: 'Cormorant, serif', fontSize: 18, fontWeight: 300, color: '#F8F4EE' }}>Зеркальный холл с латунными порталами</p>
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            {[
-              { img: IMAGES.gallery, tag: 'Office', title: 'Галерейная стена и зелёные акценты' },
-              { img: IMAGES.console, tag: 'Entrance', title: 'Багеты, консоль и круглое зеркало' },
-            ].map((c) => (
-              <div key={c.tag} style={{ position: 'relative', overflow: 'hidden', minHeight: 160 }}>
-                <img src={c.img} alt={c.tag} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.78) saturate(0.95)' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12, transparent 60%)' }} />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 14px' }}>
-                  <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 2 }}>{c.tag}</div>
-                  <p style={{ fontFamily: 'Cormorant, serif', fontSize: 15, fontWeight: 300, color: '#F8F4EE' }}>{c.title}</p>
-                </div>
+        {/* 2 большие горизонтальные фото */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+          {[
+            { img: IMAGES.lounge, tag: 'Lounge', title: 'Изумрудный velvet, мрамор и золото в каждой линии' },
+            { img: IMAGES.hall, tag: 'Reception', title: 'Зеркальный холл с латунными порталами' },
+          ].map((c, i) => (
+            <div key={c.tag} style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}>
+              <img src={c.img} alt={c.tag} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.78) saturate(0.95)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12 0%, transparent 55%)' }} />
+              {i === 0 && <div style={{ position: 'absolute', top: 12, left: 12 }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.6" fill="none"/></svg></div>}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '18px 22px' }}>
+                <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 4 }}>{c.tag}</div>
+                <p style={{ fontFamily: 'Cormorant, serif', fontSize: 20, fontWeight: 300, color: '#F8F4EE', lineHeight: 1.3 }}>{c.title}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 5 вертикальных фото */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12 }}>
+          {[
+            { img: IMAGES.gallery, tag: 'Office', title: 'Галерейная стена' },
+            { img: IMAGES.console, tag: 'Entrance', title: 'Багеты и зеркало' },
+            { img: IMAGES.armchair, tag: 'Detail', title: 'Velvet и латунь' },
+            { img: IMAGES.reception, tag: 'Bar', title: 'Reception-стойка' },
+            { img: IMAGES.bathroom, tag: 'Restroom', title: 'Зелёный кафель' },
+          ].map((c) => (
+            <div key={c.tag} style={{ position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }}>
+              <img src={c.img} alt={c.tag} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.78) saturate(0.95)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12, transparent 60%)' }} />
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '10px 12px' }}>
+                <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 2 }}>{c.tag}</div>
+                <p style={{ fontFamily: 'Cormorant, serif', fontSize: 14, fontWeight: 300, color: '#F8F4EE', lineHeight: 1.2 }}>{c.title}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
