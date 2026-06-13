@@ -11,7 +11,7 @@ const IMAGES = {
   reception: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f6375f79-2103-4094-885a-62f976b24b5f.JPG',
   bathroom: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/6f4d765a-6a5b-4544-80f9-63a20fc003bf.JPG',
   workspace: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/cfa2a6d8-1958-41a4-9e9e-de1e857ae2ca.JPG',
-  map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/files/f9a9b7c8-acc5-473a-b7b1-3f680ccf0d40.jpg',
+  map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/017108b0-ea71-418c-bb89-327c8e52aab1.png',
 };
 
 const CSS_VARS = {
@@ -107,10 +107,11 @@ function Slide1() {
 function GoldMap() {
   return (
     <>
-      <img src={IMAGES.map} alt="Карта центра Москвы" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.95) saturate(1.05) contrast(1.05)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 57% 40%, transparent 28%, rgba(14,14,18,0.55) 100%)' }} />
+      <img src={IMAGES.map} alt="Карта центра Москвы" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '47% 52%', transform: 'scale(1.9)', filter: 'brightness(1) saturate(1.1) contrast(1.05)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 48%, transparent 30%, rgba(14,14,18,0.6) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 62%, #0E0E12)' }} />
       {/* Маркер — Кузнецкий мост 4/3 */}
-      <div style={{ position: 'absolute', top: '40%', left: '57%', transform: 'translate(-50%, -100%)' }}>
+      <div style={{ position: 'absolute', top: '49%', left: '49%', transform: 'translate(-50%, -100%)' }}>
         <div style={{ position: 'absolute', left: '50%', top: '100%', transform: 'translate(-50%, -50%)', width: 64, height: 64, borderRadius: '50%', background: 'radial-gradient(circle, rgba(232,200,122,0.45), transparent 70%)' }} />
         <div style={{ position: 'absolute', left: '50%', top: '100%', transform: 'translate(-50%, -50%)', width: 30, height: 30, borderRadius: '50%', border: '1px solid rgba(232,200,122,0.6)', animation: 'mapPulse 2.4s ease-out infinite' }} />
         <svg width="34" height="44" viewBox="0 0 34 44" fill="none" style={{ position: 'relative', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.6))' }}>
@@ -151,7 +152,7 @@ function Slide2() {
             { icon: 'Building2', label: 'Здание', value: 'Общая площадь 1 703 м², полезная 1 223 м²' },
             { icon: 'LayoutGrid', label: 'Формат', value: '37 мини-офисов на 2, 3 и мансардном этажах' },
             { icon: 'Users', label: 'Ёмкость', value: '204 рабочих места, плотность 6 м²/р.м.' },
-            { icon: 'Shield', label: 'Безопасность', value: 'Охрана 24/7, видеонаблюдение' },
+            { icon: 'ScanLine', label: 'Безопасность', value: 'Smart Lock, контроль доступа и видеонаблюдение 24/7' },
           ].map((item) => (
             <div key={item.label} style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
               <div style={{ width: 32, height: 32, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(201,168,76,0.3)' }}>
