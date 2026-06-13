@@ -12,7 +12,9 @@ const IMAGES = {
   bathroom: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/6f4d765a-6a5b-4544-80f9-63a20fc003bf.JPG',
   workspace: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/cfa2a6d8-1958-41a4-9e9e-de1e857ae2ca.JPG',
   map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/d567e5dd-b2b1-4a70-9496-40bbc10e49e4.jpg',
-  planBefore: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/b577584e-ccbe-4324-b943-5d467968ddd0.png',
+  planFloor2: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/81495265-7d37-4d5c-b246-0edee6567ac8.png',
+  planFloor3: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/0ec5263d-f4fc-4f2a-8239-b88e77a0c514.png',
+  planMansard: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/7ef7e8b4-f7c9-4137-b5fd-69d1ba69c2b3.png',
 };
 
 const CSS_VARS = {
@@ -220,119 +222,73 @@ function Slide3() {
   );
 }
 
-// ─── Floor plan «После» (авторская SVG-планировка 2 этажа) ───────────────────
-function FloorPlanAfter() {
-  const G = '#C9A84C';
-  const wall = { fill: 'none', stroke: G, strokeWidth: 2.2, strokeOpacity: 0.85 };
-  const thin = { fill: 'none', stroke: G, strokeWidth: 1, strokeOpacity: 0.4 };
-  // Зоны: офисы (gold), сервис (зелёные), коммуникации (серые)
-  type Room = { x: number; y: number; w: number; h: number; label: string; type: 'office' | 'service' | 'core' };
-  const rooms: Room[] = [
-    // Верхнее левое крыло (исторические комнаты у фасада)
-    { x: 95, y: 36, w: 92, h: 90, label: 'Офис 1\n24 м²', type: 'office' },
-    { x: 187, y: 36, w: 118, h: 90, label: 'Офис 2\n32 м²', type: 'office' },
-    { x: 95, y: 126, w: 92, h: 66, label: 'Офис 3\n18 м²', type: 'office' },
-    // Reception + coffee point у входной группы
-    { x: 187, y: 126, w: 118, h: 66, label: 'Reception\n+ Coffee Point', type: 'service' },
-    // Нижнее левое крыло
-    { x: 60, y: 300, w: 150, h: 110, label: 'Офис 4\n67 м²', type: 'office' },
-    { x: 60, y: 410, w: 150, h: 70, label: 'Офис 5\n21 м²', type: 'office' },
-    // Центр-низ
-    { x: 220, y: 300, w: 120, h: 180, label: 'Офис 6\n36 м²', type: 'office' },
-    // Правое крыло
-    { x: 470, y: 210, w: 200, h: 120, label: 'Офис 7\n79 м²', type: 'office' },
-    { x: 470, y: 360, w: 200, h: 120, label: 'Офис 8\n72 м²', type: 'office' },
-    { x: 700, y: 210, w: 110, h: 95, label: 'Офис 9\n28 м²', type: 'office' },
-    { x: 700, y: 360, w: 110, h: 95, label: 'Офис 10\n26 м²', type: 'office' },
-    // Санузлы раздельные
-    { x: 700, y: 305, w: 52, h: 55, label: 'WC·M', type: 'service' },
-    { x: 752, y: 305, w: 58, h: 55, label: 'WC·Ж', type: 'service' },
-  ];
-  const colorFor = (t: Room['type']) =>
-    t === 'office' ? 'rgba(201,168,76,0.06)' : t === 'service' ? 'rgba(45,90,61,0.45)' : 'rgba(255,255,255,0.04)';
-  const strokeFor = (t: Room['type']) => (t === 'service' ? '#4E8B63' : G);
-
-  return (
-    <svg viewBox="0 0 860 520" style={{ width: '100%', height: '100%', display: 'block' }}>
-      {/* Внешний контур здания (по исходному плану) */}
-      <path d="M95 30 L305 30 L305 192 L470 192 L470 205 L820 205 L820 490 L210 490 L210 300 L55 300 L55 165 L95 130 Z" {...wall} />
-
-      {/* Зоны-комнаты */}
-      {rooms.map((r, i) => (
-        <g key={i}>
-          <rect x={r.x} y={r.y} width={r.w} height={r.h} fill={colorFor(r.type)} stroke={strokeFor(r.type)} strokeWidth={r.type === 'service' ? 1.2 : 1.4} strokeOpacity={0.7} />
-          {r.label.split('\n').map((line, k) => (
-            <text key={k} x={r.x + r.w / 2} y={r.y + r.h / 2 + (k - (r.label.split('\n').length - 1) / 2) * 13} textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize={r.type === 'service' && r.w < 70 ? 8 : 10} fill={r.type === 'service' ? '#CFE7D6' : '#F5E6C0'} fontWeight={k === 0 ? 600 : 400} opacity={k === 0 ? 1 : 0.7}>{line}</text>
-          ))}
-        </g>
-      ))}
-
-      {/* Лестницы — сохранены на исходных местах */}
-      <g>
-        {/* Лестница верхнего крыла */}
-        <rect x="225" y="200" width="80" height="60" fill="rgba(255,255,255,0.03)" {...thin} />
-        {Array.from({ length: 6 }).map((_, i) => <line key={i} x1={225} y1={206 + i * 9} x2={305} y2={206 + i * 9} {...thin} />)}
-        <text x="265" y="234" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="8" letterSpacing="2" fill={G} opacity="0.6">ЛЕСТНИЦА</text>
-        {/* Центральная парадная лестница */}
-        <rect x="345" y="205" width="115" height="180" fill="rgba(255,255,255,0.03)" {...thin} />
-        {Array.from({ length: 13 }).map((_, i) => <line key={i} x1={345} y1={213 + i * 13} x2={460} y2={213 + i * 13} {...thin} />)}
-        <line x1="402" y1="205" x2="402" y2="385" stroke={G} strokeWidth="1.4" strokeOpacity="0.5" />
-        <text x="402" y="400" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="8" letterSpacing="2" fill={G} opacity="0.6">ПАРАДНАЯ ЛЕСТНИЦА · ЛИФТ</text>
-      </g>
-
-      {/* Окна-насечки на фасадах */}
-      {[[120,30],[160,30],[210,30],[260,30],[300,55],[300,95],[300,135]].map((p,i)=>(
-        <line key={i} x1={p[0]} y1={p[1]-4} x2={p[0]+24} y2={p[1]-4} stroke={G} strokeWidth="3" strokeOpacity="0.5" />
-      ))}
-    </svg>
-  );
-}
-
 // ─── SLIDE: Поэтажный план до / после ────────────────────────────────────────
 function SlidePlan() {
+  const floors = [
+    { img: IMAGES.planFloor2, label: '2 этаж' },
+    { img: IMAGES.planFloor3, label: '3 этаж' },
+    { img: IMAGES.planMansard, label: 'Мансарда' },
+  ];
+  const zones = [
+    { icon: 'ConciergeBell', title: 'Зона ресепшн', desc: 'Парадная встреча гостей и резидентов' },
+    { icon: 'Sofa', title: 'Лаундж · софт-зона', desc: 'Мягкие диваны для отдыха и неформальных встреч' },
+    { icon: 'Coffee', title: 'Кофе-пойнт', desc: 'Кофе-станция и зона самообслуживания' },
+    { icon: 'Printer', title: 'Место для печати', desc: 'Общая зона оргтехники и документооборота' },
+    { icon: 'ShowerHead', title: 'Раздельные санузлы + душевая', desc: 'Мужской и женский, с одной душевой кабиной' },
+    { icon: 'Users', title: 'Переговорная', desc: 'Комната для совещаний и презентаций' },
+    { icon: 'UtensilsCrossed', title: 'Кухонная зона', desc: 'Полноценная кухня-столовая для резидентов' },
+    { icon: 'MicVocal', title: 'Изоляционные мини-кабинки', desc: 'Звукоизоляция для zoom-встреч и вебинаров' },
+  ];
+
   return (
-    <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '56px 64px' }}>
+    <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '48px 64px' }}>
       <GridBg /><GeoCornerTL /><GeoCornerBR />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="04" label="Поэтажный план · 2 этаж" />
-        <H2>Было <span style={{ fontStyle: 'italic', ...goldText }}>—</span> стало</H2>
-        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 28 }}>Сохраняем контур здания и лестницы, перепланируем под 10 мини-офисов с сервисными зонами</p>
+        <SectionLabel num="04" label="Поэтажный план · до / после" />
+        <H2>Было <span style={{ fontStyle: 'italic', ...goldText }}>—</span> станет</H2>
+        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 24 }}>Сохраняем контур здания и лестницы, перепланируем под современные мини-офисы с полным набором сервисных зон</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr', gap: 32, alignItems: 'stretch' }}>
           {/* ДО */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(212,207,200,0.55)' }}>До</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(212,207,200,0.55)' }}>До · текущие планы</div>
               <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,0.2)' }} />
             </div>
-            <div style={{ flex: 1, background: '#fff', border: '1px solid rgba(201,168,76,0.25)', padding: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src={IMAGES.planBefore} alt="План до" style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
-            </div>
-            <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 11, color: 'rgba(212,207,200,0.55)', marginTop: 10 }}>Исходная планировка: хаотичная нарезка, неэффективное использование площади</p>
-          </div>
-
-          {/* ПОСЛЕ */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>После</div>
-              <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, #C9A84C, transparent)' }} />
-            </div>
-            <div style={{ flex: 1, background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(201,168,76,0.4)', padding: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: -1, left: -1, width: 18, height: 18, borderTop: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C' }} />
-              <div style={{ position: 'absolute', bottom: -1, right: -1, width: 18, height: 18, borderBottom: '2px solid #C9A84C', borderRight: '2px solid #C9A84C' }} />
-              <FloorPlanAfter />
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
-              {[
-                { c: 'rgba(201,168,76,0.5)', l: '10 мини-офисов' },
-                { c: '#4E8B63', l: 'Раздельные санузлы' },
-                { c: '#4E8B63', l: 'Reception + Coffee Point' },
-              ].map((b) => (
-                <div key={b.l} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ width: 9, height: 9, background: b.c, display: 'inline-block' }} />
-                  <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, color: 'rgba(212,207,200,0.75)' }}>{b.l}</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, flex: 1 }}>
+              {floors.map((f) => (
+                <div key={f.label} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ flex: 1, background: '#fff', border: '1px solid rgba(201,168,76,0.25)', padding: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src={f.img} alt={f.label} style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
+                  </div>
+                  <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', textAlign: 'center', marginTop: 8 }}>{f.label}</div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* ПОСЛЕ — описание зон */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>После · что добавим</div>
+              <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, #C9A84C, transparent)' }} />
+            </div>
+            <div style={{ flex: 1, background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(201,168,76,0.4)', padding: '22px 24px', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', top: -1, left: -1, width: 18, height: 18, borderTop: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C' }} />
+              <div style={{ position: 'absolute', bottom: -1, right: -1, width: 18, height: 18, borderBottom: '2px solid #C9A84C', borderRight: '2px solid #C9A84C' }} />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px 22px' }}>
+                {zones.map((z) => (
+                  <div key={z.title} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                    <div style={{ width: 34, height: 34, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(201,168,76,0.35)' }}>
+                      <Icon name={z.icon} size={15} style={{ color: '#C9A84C' }} />
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, fontWeight: 600, color: '#F8F4EE', lineHeight: 1.25 }}>{z.title}</div>
+                      <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, color: 'rgba(212,207,200,0.6)', marginTop: 3, lineHeight: 1.4 }}>{z.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
