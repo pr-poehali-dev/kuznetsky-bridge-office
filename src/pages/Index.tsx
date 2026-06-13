@@ -12,6 +12,7 @@ const IMAGES = {
   bathroom: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/6f4d765a-6a5b-4544-80f9-63a20fc003bf.JPG',
   workspace: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/cfa2a6d8-1958-41a4-9e9e-de1e857ae2ca.JPG',
   map: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/017108b0-ea71-418c-bb89-327c8e52aab1.png',
+  planBefore: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/b577584e-ccbe-4324-b943-5d467968ddd0.png',
 };
 
 const CSS_VARS = {
@@ -215,6 +216,127 @@ function Slide3() {
   );
 }
 
+// ─── Floor plan «После» (авторская SVG-планировка 2 этажа) ───────────────────
+function FloorPlanAfter() {
+  const G = '#C9A84C';
+  const wall = { fill: 'none', stroke: G, strokeWidth: 2.2, strokeOpacity: 0.85 };
+  const thin = { fill: 'none', stroke: G, strokeWidth: 1, strokeOpacity: 0.4 };
+  // Зоны: офисы (gold), сервис (зелёные), коммуникации (серые)
+  type Room = { x: number; y: number; w: number; h: number; label: string; type: 'office' | 'service' | 'core' };
+  const rooms: Room[] = [
+    // Верхнее левое крыло (исторические комнаты у фасада)
+    { x: 95, y: 36, w: 92, h: 90, label: 'Офис 1\n24 м²', type: 'office' },
+    { x: 187, y: 36, w: 118, h: 90, label: 'Офис 2\n32 м²', type: 'office' },
+    { x: 95, y: 126, w: 92, h: 66, label: 'Офис 3\n18 м²', type: 'office' },
+    // Reception + coffee point у входной группы
+    { x: 187, y: 126, w: 118, h: 66, label: 'Reception\n+ Coffee Point', type: 'service' },
+    // Нижнее левое крыло
+    { x: 60, y: 300, w: 150, h: 110, label: 'Офис 4\n67 м²', type: 'office' },
+    { x: 60, y: 410, w: 150, h: 70, label: 'Офис 5\n21 м²', type: 'office' },
+    // Центр-низ
+    { x: 220, y: 300, w: 120, h: 180, label: 'Офис 6\n36 м²', type: 'office' },
+    // Правое крыло
+    { x: 470, y: 210, w: 200, h: 120, label: 'Офис 7\n79 м²', type: 'office' },
+    { x: 470, y: 360, w: 200, h: 120, label: 'Офис 8\n72 м²', type: 'office' },
+    { x: 700, y: 210, w: 110, h: 95, label: 'Офис 9\n28 м²', type: 'office' },
+    { x: 700, y: 360, w: 110, h: 95, label: 'Офис 10\n26 м²', type: 'office' },
+    // Санузлы раздельные
+    { x: 700, y: 305, w: 52, h: 55, label: 'WC·M', type: 'service' },
+    { x: 752, y: 305, w: 58, h: 55, label: 'WC·Ж', type: 'service' },
+  ];
+  const colorFor = (t: Room['type']) =>
+    t === 'office' ? 'rgba(201,168,76,0.06)' : t === 'service' ? 'rgba(45,90,61,0.45)' : 'rgba(255,255,255,0.04)';
+  const strokeFor = (t: Room['type']) => (t === 'service' ? '#4E8B63' : G);
+
+  return (
+    <svg viewBox="0 0 860 520" style={{ width: '100%', height: '100%', display: 'block' }}>
+      {/* Внешний контур здания (по исходному плану) */}
+      <path d="M95 30 L305 30 L305 192 L470 192 L470 205 L820 205 L820 490 L210 490 L210 300 L55 300 L55 165 L95 130 Z" {...wall} />
+
+      {/* Зоны-комнаты */}
+      {rooms.map((r, i) => (
+        <g key={i}>
+          <rect x={r.x} y={r.y} width={r.w} height={r.h} fill={colorFor(r.type)} stroke={strokeFor(r.type)} strokeWidth={r.type === 'service' ? 1.2 : 1.4} strokeOpacity={0.7} />
+          {r.label.split('\n').map((line, k) => (
+            <text key={k} x={r.x + r.w / 2} y={r.y + r.h / 2 + (k - (r.label.split('\n').length - 1) / 2) * 13} textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize={r.type === 'service' && r.w < 70 ? 8 : 10} fill={r.type === 'service' ? '#CFE7D6' : '#F5E6C0'} fontWeight={k === 0 ? 600 : 400} opacity={k === 0 ? 1 : 0.7}>{line}</text>
+          ))}
+        </g>
+      ))}
+
+      {/* Лестницы — сохранены на исходных местах */}
+      <g>
+        {/* Лестница верхнего крыла */}
+        <rect x="225" y="200" width="80" height="60" fill="rgba(255,255,255,0.03)" {...thin} />
+        {Array.from({ length: 6 }).map((_, i) => <line key={i} x1={225} y1={206 + i * 9} x2={305} y2={206 + i * 9} {...thin} />)}
+        <text x="265" y="234" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="8" letterSpacing="2" fill={G} opacity="0.6">ЛЕСТНИЦА</text>
+        {/* Центральная парадная лестница */}
+        <rect x="345" y="205" width="115" height="180" fill="rgba(255,255,255,0.03)" {...thin} />
+        {Array.from({ length: 13 }).map((_, i) => <line key={i} x1={345} y1={213 + i * 13} x2={460} y2={213 + i * 13} {...thin} />)}
+        <line x1="402" y1="205" x2="402" y2="385" stroke={G} strokeWidth="1.4" strokeOpacity="0.5" />
+        <text x="402" y="400" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="8" letterSpacing="2" fill={G} opacity="0.6">ПАРАДНАЯ ЛЕСТНИЦА · ЛИФТ</text>
+      </g>
+
+      {/* Окна-насечки на фасадах */}
+      {[[120,30],[160,30],[210,30],[260,30],[300,55],[300,95],[300,135]].map((p,i)=>(
+        <line key={i} x1={p[0]} y1={p[1]-4} x2={p[0]+24} y2={p[1]-4} stroke={G} strokeWidth="3" strokeOpacity="0.5" />
+      ))}
+    </svg>
+  );
+}
+
+// ─── SLIDE: Поэтажный план до / после ────────────────────────────────────────
+function SlidePlan() {
+  return (
+    <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '56px 64px' }}>
+      <GridBg /><GeoCornerTL /><GeoCornerBR />
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <SectionLabel num="04" label="Поэтажный план · 2 этаж" />
+        <H2>Было <span style={{ fontStyle: 'italic', ...goldText }}>—</span> стало</H2>
+        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 28 }}>Сохраняем контур здания и лестницы, перепланируем под 10 мини-офисов с сервисными зонами</p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'stretch' }}>
+          {/* ДО */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(212,207,200,0.55)' }}>До</div>
+              <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,0.2)' }} />
+            </div>
+            <div style={{ flex: 1, background: '#fff', border: '1px solid rgba(201,168,76,0.25)', padding: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img src={IMAGES.planBefore} alt="План до" style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
+            </div>
+            <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 11, color: 'rgba(212,207,200,0.55)', marginTop: 10 }}>Исходная планировка: хаотичная нарезка, неэффективное использование площади</p>
+          </div>
+
+          {/* ПОСЛЕ */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>После</div>
+              <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, #C9A84C, transparent)' }} />
+            </div>
+            <div style={{ flex: 1, background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(201,168,76,0.4)', padding: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: -1, left: -1, width: 18, height: 18, borderTop: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C' }} />
+              <div style={{ position: 'absolute', bottom: -1, right: -1, width: 18, height: 18, borderBottom: '2px solid #C9A84C', borderRight: '2px solid #C9A84C' }} />
+              <FloorPlanAfter />
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
+              {[
+                { c: 'rgba(201,168,76,0.5)', l: '10 мини-офисов' },
+                { c: '#4E8B63', l: 'Раздельные санузлы' },
+                { c: '#4E8B63', l: 'Reception + Coffee Point' },
+              ].map((b) => (
+                <div key={b.l} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ width: 9, height: 9, background: b.c, display: 'inline-block' }} />
+                  <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, color: 'rgba(212,207,200,0.75)' }}>{b.l}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── SLIDE 4: Стиль и атмосфера ──────────────────────────────────────────────
 function Slide4() {
   const features = [
@@ -227,7 +349,7 @@ function Slide4() {
     <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', padding: '56px 64px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <GridBg />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="04" label="Стиль и атмосфера" />
+        <SectionLabel num="05" label="Стиль и атмосфера" />
         <H2>Детали, которые <span style={{ fontStyle: 'italic', ...goldText }}>вдохновляют</span></H2>
         <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 13, lineHeight: 1.8, color: 'rgba(212,207,200,0.78)', maxWidth: 760, marginBottom: 24 }}>
           Интерьеры сохраняют союз классики и модерна, подчёркивая роскошь культурного наследия исторического центра столицы. Княжеский, царский характер пространства задают золотые элементы декора, глубокий благородный тёмно-зелёный цвет, лепнина и багеты — каждая деталь работает на ощущение престижа и статуса.
@@ -306,7 +428,7 @@ function Slide5() {
     <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '64px 64px' }}>
       <GridBg /><GeoCornerTR /><GeoCornerBL />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="05" label="Финансовые показатели" />
+        <SectionLabel num="06" label="Финансовые показатели" />
         <H2>Экономика <span style={{ fontStyle: 'italic', ...goldText }}>проекта</span></H2>
         <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, color: 'rgba(212,207,200,0.5)', marginBottom: 36 }}>Все суммы в миллионах рублей. Срок реализации — 10 месяцев.</p>
 
@@ -377,7 +499,7 @@ function Slide6() {
     <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '64px 64px' }}>
       <GridBg /><GeoCornerTL /><GeoCornerBR />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="06" label="План продаж" />
+        <SectionLabel num="07" label="План продаж" />
         <H2>Реализация <span style={{ fontStyle: 'italic', ...goldText }}>37 офисов</span></H2>
         <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 44 }}>Старт продаж — 5-й месяц. Полная реализация — к 10-му месяцу проекта.</p>
 
@@ -435,7 +557,7 @@ function Slide7() {
     <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '64px 64px' }}>
       <GridBg /><GeoCornerTR /><GeoCornerBL />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="07" label="Привлечение инвестиций" />
+        <SectionLabel num="08" label="Привлечение инвестиций" />
         <H2>Условия <span style={{ fontStyle: 'italic', ...goldText }}>входа</span></H2>
         <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 40 }}>Освоение инвестиций в первые 4 месяца. Доход инвестора — 23,35% годовых.</p>
 
@@ -509,7 +631,7 @@ function Slide8() {
     <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '56px 64px' }}>
       <GridBg /><GeoCornerTL /><GeoCornerBR />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="08" label="Динамика проекта" />
+        <SectionLabel num="09" label="Динамика проекта" />
         <H2>Ход <span style={{ fontStyle: 'italic', ...goldText }}>реализации</span></H2>
         <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 28 }}>Полный цикл — 10 месяцев от инвестирования до передачи помещений покупателям.</p>
 
@@ -645,7 +767,7 @@ function NavDots({ current, total, onGo }: { current: number; total: number; onG
 export default function Index() {
   const [current, setCurrent] = useState(0);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const slides = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9];
+  const slides = [Slide1, Slide2, Slide3, SlidePlan, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9];
 
   const scrollToSlide = (i: number) => slideRefs.current[i]?.scrollIntoView({ behavior: 'smooth' });
 
