@@ -3,10 +3,10 @@ import Icon from '@/components/ui/icon';
 
 const IMAGES = {
   facade: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f65d5fb0-71a8-4e78-8268-e973884a52e5.PNG',
-  coffeePoint: 'https://cdn.poehali.dev/files/4588da5f-3b60-48ee-b10b-6223d23ce5be.JPG',
-  breakRoom: 'https://cdn.poehali.dev/files/b75d1469-7163-4781-ae09-f682e25b0a49.JPG',
-  reception: 'https://cdn.poehali.dev/files/db488f96-2d47-46ad-9b34-9ca30ac0ed3b.JPG',
-  menSpace: 'https://cdn.poehali.dev/files/9d6ad558-12d8-4655-8601-c623f5d8a6c8.JPG',
+  lounge: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/07bafacb-0614-41eb-bed2-ca6302eb3a40.JPG',
+  hall: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/4a3c3947-6ab8-46b8-bdc7-37f090036245.JPG',
+  gallery: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/c1cb7a77-230c-4d45-b1f5-10f4b8ddbb2a.JPG',
+  console: 'https://cdn.poehali.dev/projects/bcc7e4e4-2404-4e72-ab44-af82fb6b2988/bucket/f73bb74b-08a0-4f8e-8fbe-3df7596369bb.JPG',
 };
 
 const CSS_VARS = {
@@ -73,7 +73,7 @@ function Slide1() {
 
         <div style={{ background: 'linear-gradient(90deg, transparent, #C9A84C, transparent)', height: 1, maxWidth: 280, margin: '28px auto', opacity: 0, animation: 'fadeIn 0.6s ease 0.35s forwards' }} />
 
-        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 11, letterSpacing: '0.25em', textTransform: 'uppercase', color: '#D4CFC8', marginBottom: 4, opacity: 0, animation: 'fadeIn 0.6s ease 0.45s forwards' }}>Премиальный офисный проект · Архангельский пер., 6 стр. 2</p>
+        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 11, letterSpacing: '0.25em', textTransform: 'uppercase', color: '#D4CFC8', marginBottom: 4, opacity: 0, animation: 'fadeIn 0.6s ease 0.45s forwards' }}>Премиальный офисный проект · ул. Кузнецкий мост, д. 4</p>
         <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.2em', color: 'rgba(201,168,76,0.7)', opacity: 0, animation: 'fadeIn 0.6s ease 0.5s forwards' }}>37 мини-офисов · 1 223 м² полезной площади · Москва</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 0, maxWidth: 520, margin: '56px auto 0', opacity: 0, animation: 'fadeUp 0.8s ease 0.6s forwards' }}>
@@ -107,7 +107,7 @@ function Slide2() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 55%, #0E0E12)' }} />
         <div style={{ position: 'absolute', bottom: 32, left: 32, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.4)' }}>
           <Icon name="MapPin" size={11} style={{ color: '#C9A84C' }} />
-          <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>Архангельский пер., 6 стр. 2</span>
+          <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C' }}>ул. Кузнецкий мост, д. 4</span>
         </div>
       </div>
 
@@ -188,42 +188,60 @@ function Slide3() {
   );
 }
 
-// ─── SLIDE 4: Пространства ───────────────────────────────────────────────────
+// ─── SLIDE 4: Стиль и атмосфера ──────────────────────────────────────────────
 function Slide4() {
+  const features = [
+    { icon: 'Crown', label: 'Классика и модерн в роскоши царского стиля' },
+    { icon: 'Sparkles', label: 'Золотые элементы декора и латунная фурнитура' },
+    { icon: 'Palette', label: 'Глубокий благородный тёмно-зелёный цвет' },
+    { icon: 'Frame', label: 'Лепнина, багеты и резные молдинги' },
+  ];
   return (
-    <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', padding: '64px 64px' }}>
+    <section style={{ minHeight: '100vh', background: '#0E0E12', position: 'relative', padding: '56px 64px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <GridBg />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <SectionLabel num="04" label="Общие пространства" />
+        <SectionLabel num="04" label="Стиль и атмосфера" />
         <H2>Детали, которые <span style={{ fontStyle: 'italic', ...goldText }}>вдохновляют</span></H2>
-        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 32 }}>Каждый элемент — от reception до coffee point — выполнен на уровне luxury boutique hotel</p>
+        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 13, lineHeight: 1.8, color: 'rgba(212,207,200,0.78)', maxWidth: 760, marginBottom: 24 }}>
+          Интерьеры сохраняют союз классики и модерна, подчёркивая роскошь культурного наследия исторического центра столицы. Княжеский, царский характер пространства задают золотые элементы декора, глубокий благородный тёмно-зелёный цвет, лепнина и багеты — каждая деталь работает на ощущение престижа и статуса.
+        </p>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 28 }}>
+          {features.map((f) => (
+            <div key={f.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px', background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(201,168,76,0.25)' }}>
+              <Icon name={f.icon} size={13} style={{ color: '#C9A84C' }} />
+              <span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 11, color: '#F8F4EE' }}>{f.label}</span>
+            </div>
+          ))}
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: 'auto auto', gap: 12 }}>
           <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '4/3', gridRow: '1 / 3' }}>
-            <img src={IMAGES.coffeePoint} alt="Coffee Point" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.65) saturate(0.8)' }} />
+            <img src={IMAGES.lounge} alt="Lounge" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.78) saturate(0.95)' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12 0%, transparent 50%)' }} />
             <div style={{ position: 'absolute', top: 12, left: 12 }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M0 24 L0 0 L24 0" stroke="#C9A84C" strokeWidth="1" strokeOpacity="0.6" fill="none"/></svg></div>
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 24px' }}>
-              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 4 }}>Coffee Point</div>
-              <p style={{ fontFamily: 'Cormorant, serif', fontSize: 22, fontWeight: 300, color: '#F8F4EE', lineHeight: 1.3 }}>Неоновый кофе-уголок с деревянными акцентами</p>
+              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 4 }}>Lounge</div>
+              <p style={{ fontFamily: 'Cormorant, serif', fontSize: 22, fontWeight: 300, color: '#F8F4EE', lineHeight: 1.3 }}>Изумрудный velvet, мрамор и золото в каждой линии</p>
             </div>
           </div>
 
           <div style={{ position: 'relative', overflow: 'hidden' }}>
-            <img src={IMAGES.breakRoom} alt="Break Room" style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: 180, filter: 'brightness(0.6) saturate(0.75)' }} />
+            <img src={IMAGES.hall} alt="Hall" style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: 180, filter: 'brightness(0.75) saturate(0.95)' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12 0%, transparent 60%)' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '14px 18px' }}>
-              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 3 }}>Break Zone</div>
-              <p style={{ fontFamily: 'Cormorant, serif', fontSize: 18, fontWeight: 300, color: '#F8F4EE' }}>Зона отдыха и переговоров</p>
+              <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 3 }}>Reception</div>
+              <p style={{ fontFamily: 'Cormorant, serif', fontSize: 18, fontWeight: 300, color: '#F8F4EE' }}>Зеркальный холл с латунными порталами</p>
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {[
-              { img: IMAGES.reception, tag: 'Reception', title: 'Зелёная ресепция' },
-              { img: IMAGES.menSpace, tag: 'Men Space', title: 'Авторские санузлы' },
+              { img: IMAGES.gallery, tag: 'Office', title: 'Галерейная стена и зелёные акценты' },
+              { img: IMAGES.console, tag: 'Entrance', title: 'Багеты, консоль и круглое зеркало' },
             ].map((c) => (
               <div key={c.tag} style={{ position: 'relative', overflow: 'hidden', minHeight: 160 }}>
-                <img src={c.img} alt={c.tag} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.65) saturate(0.8)' }} />
+                <img src={c.img} alt={c.tag} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.78) saturate(0.95)' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0E0E12, transparent 60%)' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 14px' }}>
                   <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 2 }}>{c.tag}</div>
@@ -243,8 +261,7 @@ function Slide5() {
   const costs = [
     { label: 'Приобретение здания', value: '509,4', gold: false, bold: true },
     { label: 'CAPEX (отделимый + неотделимый)', value: '202,1', gold: false, bold: false },
-    { label: 'Дополнительные расходы', value: '16,1', gold: false, bold: false },
-    { label: 'Финансирование (5%)', value: '35,6', gold: false, bold: false },
+    { label: 'Дополнительные расходы', value: '51,7', gold: false, bold: false },
     { label: 'Сумма инвестиций', value: '763,1', gold: true, bold: true },
     { label: 'Выручка (за вычетом налога/НДС)', value: '1 234,8', gold: false, bold: false },
     { label: 'Чистая прибыль проекта', value: '297,0', gold: true, bold: true },
@@ -392,15 +409,14 @@ function Slide7() {
       <div style={{ position: 'relative', zIndex: 10 }}>
         <SectionLabel num="07" label="Привлечение инвестиций" />
         <H2>Условия <span style={{ fontStyle: 'italic', ...goldText }}>входа</span></H2>
-        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 40 }}>Освоение инвестиций в первые 4 месяца. Доход инвестора — 23,35%.</p>
+        <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(212,207,200,0.65)', marginBottom: 40 }}>Освоение инвестиций в первые 4 месяца. Доход инвестора — 23,35% годовых.</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 40, alignItems: 'center' }}>
           {/* Terms */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {[
               { icon: 'Wallet', label: 'Сумма инвестиций', value: '763 091 185 ₽', big: true },
-              { icon: 'Percent', label: 'Стоимость привлечения средств', value: '5%' },
-              { icon: 'TrendingUp', label: 'Доход инвестора', value: '23,35%' },
+              { icon: 'TrendingUp', label: 'Доход инвестора', value: '23,35% годовых' },
               { icon: 'Clock', label: 'Срок проекта', value: '10 месяцев' },
             ].map((t) => (
               <div key={t.label} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '18px 22px', background: t.big ? 'rgba(201,168,76,0.1)' : 'rgba(255,255,255,0.025)', border: `1px solid ${t.big ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.2)'}` }}>
@@ -542,7 +558,7 @@ function Slide9() {
             { icon: 'Phone', label: 'Телефон', value: '+7 (495) 514-83-61' },
             { icon: 'Mail', label: 'Email', value: 'anna@6629556.ru' },
             { icon: 'Globe', label: 'Сайт', value: 'amigroup.info' },
-            { icon: 'MapPin', label: 'Адрес', value: 'Москва, Архангельский пер., 6 стр. 2' },
+            { icon: 'MapPin', label: 'Адрес', value: 'Москва, ул. Кузнецкий мост, д. 4' },
           ].map((c) => (
             <div key={c.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
               <div style={{ width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(201,168,76,0.4)' }}>
@@ -561,8 +577,9 @@ function Slide9() {
           Связаться с нами
         </a>
 
-        <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.25)', marginTop: 56 }}>
-          AMI GROUP © 2024 · Кузнецкий мост, Москва
+        <div style={{ fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(201,168,76,0.35)', marginTop: 56 }}>
+          AMI GROUP © 2014 ·{' '}
+          <a href="https://amigroup.info" target="_blank" rel="noopener noreferrer" style={{ color: '#C9A84C', textDecoration: 'none', borderBottom: '1px solid rgba(201,168,76,0.4)' }}>amigroup.info</a>
         </div>
       </div>
     </section>
